@@ -1,0 +1,29 @@
+apiVersion: skaffold/v2beta29
+kind: Config
+metadata:
+  name: pca-flask-pipeline
+build:
+  artifacts:
+    - image: us-central1-docker.pkg.dev/cosmic-signer-459715-h4/pca-demo-repo/pca-flask-app
+      context: .
+      docker:
+        dockerfile: Dockerfile
+  tagPolicy:
+    sha256: {}
+deploy:
+  cloudrun:
+    projectId: cosmic-signer-459715-h4
+    region: us-central1
+    serviceName: pca-flask-app
+manifests:
+  rawYaml:
+    - clouddeploy.yaml
+profiles:
+  - name: staging
+    deploy:
+      cloudrun:
+        serviceName: pca-flask-app-staging
+  - name: production
+    deploy:
+      cloudrun:
+        serviceName: pca-flask-app-prod
