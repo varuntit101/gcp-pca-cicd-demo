@@ -23,5 +23,8 @@ steps:
         'cloud-build-deployer@$PROJECT_ID.iam.gserviceaccount.com'
       ]
 
+options:
+  logging: CLOUD_LOGGING_ONLY
+
 images:
   - 'us-central1-docker.pkg.dev/$PROJECT_ID/pca-demo-repo/pca-flask-app'
